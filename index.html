@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday</title>
+  <style>
+    /* สไตล์สำหรับทั้งสองหน้า */
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      transition: background 0.5s ease-in-out;
+      flex-direction: column;
+    }
+    .hidden {
+      display: none;
+    }
+
+    /* หน้า Happy Birthday */
+    #birthday-page {
+      background: linear-gradient(to bottom, #ffccff, #ff99ff);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+      position: relative;
+    }
+    h1 {
+      color: #ff33cc;
+      font-size: 3rem;
+      text-shadow: 2px 2px #ff66ff;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .button {
+      margin-top: 20px;
+      padding: 20px 40px;
+      font-size: 1.5rem;
+      color: white;
+      background-color: #ff33cc;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-shadow: 1px 1px #ff66ff;
+      transition: transform 0.2s, background-color 0.3s;
+    }
+    .button:hover {
+      background-color: #ff66ff;
+      transform: scale(1.1);
+    }
+
+    /* หน้า Box Message Page */
+    #message-page {
+      background: linear-gradient(to bottom, #ffddcc, #ffeecc);
+      flex-direction: column;
+      align-items: center;
+      display: none;
+      width: 100%;
+      height: 100vh;
+      padding: 20px;
+      position: relative;
+    }
+    .container {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .message-box {
+      width: 100%;
+      padding: 30px;
+      position: relative;
+      background: #fff;
+      border: 2px solid #ff66ff;
+      border-radius: 10px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+    .message-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 20px;
+      background: #ff99ff;
+    }
+    .message {
+      font-size: 1.5rem;
+      color: #4e4e4e;
+      font-family: 'Arial', sans-serif;
+      padding: 0 15px;
+      line-height: 1.6;
+    }
+
+    /* ลูกโป่ง */
+    .balloon {
+      position: absolute;
+      width: 80px;
+      height: 120px;
+      border-radius: 50%;
+      background-color: #ff66cc;
+      animation: balloon 5s linear infinite;
+    }
+    .balloon:nth-child(1) {
+      background-color: #ff33cc;
+      left: 20%;
+      animation-duration: 6s;
+    }
+    .balloon:nth-child(2) {
+      background-color: #66ccff;
+      left: 50%;
+      animation-duration: 8s;
+    }
+    .balloon:nth-child(3) {
+      background-color: #ff9933;
+      left: 80%;
+      animation-duration: 7s;
+    }
+    @keyframes balloon {
+      0% {
+        bottom: -150px;
+      }
+      100% {
+        bottom: 100vh;
+      }
+    }
+
+    /* พลุ */
+    .fireworks {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .firework {
+      position: absolute;
+      background-color: #ff3333;
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      opacity: 0;
+      animation: firework-animation 1.5s ease-out forwards;
+    }
+    @keyframes firework-animation {
+      0% { transform: scale(0); opacity: 1; }
+      50% { transform: scale(2); opacity: 0.7; }
+      100% { transform: scale(0); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- หน้า Happy Birthday -->
+  <div id="birthday-page">
+    <h1>Happy Birthday my father, I love you!</h1>
+    <button class="button" onclick="showMessagePage()">ไปหน้าต่อไป</button>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+  </div>
+
+  <!-- หน้า Box Message Page -->
+  <div id="message-page" class="hidden">
+    <div class="container">
+      <div class="message-box">
+        <div class="message">
+          สุขสันต์วันเกิดครับปะป๊า ขอให้ป๊าสุขภาพร่างกายแข็งแรงรวยๆเฮงๆ อยู่กับแม่กับน้องกับหนูไปนานๆขอให้การผ่าเข่าของป๊าลุล่วงไปด้วยดี หนูสัญญาว่าอนาคตหนูจะทำให้ตัวเองมีหน้าที่การงานที่มั่นคงและเลี้ยงดูแม่กับป๊าไปตลอดครับ
+        </div>
+      </div>
+    </div>
+    <div class="fireworks" id="fireworks"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+  </div>
+
+  <script>
+    // ฟังก์ชันแสดงหน้ากล่องข้อความ
+    function showMessagePage() {
+      document.getElementById('birthday-page').style.display = 'none';
+      document.getElementById('message-page').style.display = 'flex';
+      startFireworks();
+    }
+
+    // ฟังก์ชันเริ่มพลุ
+    function startFireworks() {
+      const fireworksContainer = document.getElementById('fireworks');
+      setInterval(() => {
+        const firework = document.createElement('div');
+        firework.classList.add('firework');
+        firework.style.top = `${Math.random() * 100}%`;
+        firework.style.left = `${Math.random() * 100}%`;
+        fireworksContainer.appendChild(firework);
+
+        // ลบพลุหลังจากการอนิเมชัน
+        setTimeout(() => {
+          firework.remove();
+        }, 1500);
+      }, 500);
+    }
+  </script>
+</body>
+</html>
